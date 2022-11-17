@@ -22,11 +22,32 @@ object Client extends DefaultJsonProtocol {
   implicit val system = ActorSystem()
 
   def main(args: Array[String]): Unit = {
-   startGame(15)
-//     while(true){
-//      pingPong()
-//      Thread.sleep(1000)
-//    }
+
+    while (true) {
+      try {
+        val rand = new scala.util.Random
+        Thread.sleep(500)
+        println("press 1 to play the game\npress 2 to ping the server \npress 3 to exit ")
+        val a = scala.io.StdIn.readInt()
+        if (a == 1) {
+          startGame(rand.nextInt(20))
+        }
+        else if (a == 2) {
+          pingPong()
+          Thread.sleep(1000)
+
+        }
+        else if (a == 3) {
+          System.exit(0)
+        }
+        else {
+          println("please input a valid number")
+        }
+      }
+      catch {
+        case e: Exception => println("an error has occured")
+      }
+    }
   }
 
 

@@ -34,7 +34,7 @@ object GameService {
     }
     winners = winners.sortWith(_.result > _.result)
     for (i <- 0 until winners.size) {
-      winners(i).position = i
+      winners(i).position = i+1
     }
     if(winners.size== 0){
       return "No one has won !".asJson
