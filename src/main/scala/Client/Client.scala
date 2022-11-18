@@ -26,16 +26,18 @@ object Client extends DefaultJsonProtocol {
     while (true) {
       try {
         val rand = new scala.util.Random
-        Thread.sleep(500)
         println("press 1 to play the game\npress 2 to ping the server \npress 3 to exit ")
         val a = scala.io.StdIn.readInt()
         if (a == 1) {
+
           startGame(rand.nextInt(20))
+          Thread.sleep(800)
         }
         else if (a == 2) {
-          pingPong()
-          Thread.sleep(1000)
-
+          for (i <- 0 until 3) {
+            pingPong()
+            Thread.sleep(800)
+          }
         }
         else if (a == 3) {
           System.exit(0)

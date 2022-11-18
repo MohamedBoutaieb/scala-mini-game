@@ -1,0 +1,14 @@
+[0m[[0m[33mwarn[0m] [0m[0mC:\my-workspace\scala-projects\mini-game\src\main\scala\Client\Client.scala:61:18: match may not be exhaustive.[0m
+[0m[[0m[33mwarn[0m] [0m[0mIt would fail on the following inputs: Streamed(_), Strict(_), _[0m
+[0m[[0m[33mwarn[0m] [0m[0m    Sink.foreach {[0m
+[0m[[0m[33mwarn[0m] [0m[0m                 ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mC:\my-workspace\scala-projects\mini-game\src\main\scala\Client\Client.scala:93:18: match may not be exhaustive.[0m
+[0m[[0m[33mwarn[0m] [0m[0mIt would fail on the following inputs: Streamed(_), Strict(_), _[0m
+[0m[[0m[33mwarn[0m] [0m[0m    Sink.foreach {[0m
+[0m[[0m[33mwarn[0m] [0m[0m                 ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m2 deprecations (since 1.0.6)[0m
+[0m[[0m[33mwarn[0m] [0m[0m1 deprecation (since 10.2.0)[0m
+[0m[[0m[33mwarn[0m] [0m[0m1 deprecation (since 2.13.0)[0m
+[0m[[0m[33mwarn[0m] [0m[0m2 deprecations (since 2.6.0)[0m
+[0m[[0m[33mwarn[0m] [0m[0m6 deprecations in total; re-run with -deprecation for details[0m
+[0m[[0m[33mwarn[0m] [0m[0m7 warnings found[0m
