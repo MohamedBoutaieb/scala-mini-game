@@ -22,11 +22,11 @@ object Server {
     implicit val executionContext = system.dispatcher
 
     val mainGameRouter = new MainGame()
-    val bindingFuture = Http().bindAndHandle(mainGameRouter.websocketRoutes, Config.host,Config.port)
-    println(s"Server online at ${Config.host}:${Config.port}\nPress RETURN to stop...")
-    StdIn.readLine()
+    val bindingFuture = Http().bindAndHandle(mainGameRouter.websocketRoutes, Config.host, Config.port)
+    println(s"Server online at ${Config.host}:${Config.port}\nPress x to stop...")
+    val x = scala.io.StdIn.readLine()
     bindingFuture
       .flatMap(_.unbind())
-      .onComplete(_ => system.terminate())
+      .onComplete(_ => System.exit(0))
   }
 }

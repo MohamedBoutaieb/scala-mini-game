@@ -36,7 +36,7 @@ object GameService {
     for (i <- 0 until winners.size) {
       winners(i).position = i+1
     }
-    if(winners.size== 0){
+    if(winners.isEmpty){
       return "No one has won !".asJson
     }
     winners.asJson

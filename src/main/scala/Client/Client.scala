@@ -29,8 +29,12 @@ object Client extends DefaultJsonProtocol {
         println("press 1 to play the game\npress 2 to ping the server \npress 3 to exit ")
         val a = scala.io.StdIn.readInt()
         if (a == 1) {
-
-          startGame(rand.nextInt(20))
+          println("enter the number of players")
+          val input = scala.io.StdIn.readInt()
+          if (input > 1)
+            startGame(input)
+          else
+            println("your input is not valid")
           Thread.sleep(800)
         }
         else if (a == 2) {
@@ -80,7 +84,6 @@ object Client extends DefaultJsonProtocol {
         throw new RuntimeException(s"Connection failed: ${upgrade.response.status}")
       }
     }
-
     connected.onComplete(a => println(a.get))
     closed.foreach(_ => println("socket closed"))
   }
