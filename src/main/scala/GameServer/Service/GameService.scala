@@ -15,6 +15,8 @@ object GameService {
       ("result", Json.fromLong(player.result))
     )
   }
+
+  // the game procedure
   def gameFlow(n: Int): Json = {
     var players = List[Player]()
     for (i <- 1 to n) {
@@ -42,6 +44,7 @@ object GameService {
     winners.asJson
   }
 
+  // calculate the score from a number n
   def getResult(numb: Long): Long = {
     var numbersOcc: Map[Int, Int] = Map()
     for (i <- 0 to 10) {
@@ -59,11 +62,13 @@ object GameService {
     result
   }
 
+  // the bot turn
   def botPlay(): Long = {
     val num = getRandom()
     getResult(num)
   }
 
+  // get a random number between 0 and 999999
   def getRandom(): Long = {
     val rand = new scala.util.Random
     rand.nextLong(999999);

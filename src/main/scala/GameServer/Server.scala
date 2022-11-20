@@ -17,6 +17,10 @@ object Server {
   }
 
   def main(args: Array[String]) {
+    launch()
+  }
+
+  def launch(): Unit = {
     implicit val system = ActorSystem()
     implicit val materializer = ActorMaterializer()
     implicit val executionContext = system.dispatcher

@@ -18,8 +18,9 @@ object Client extends DefaultJsonProtocol {
 
   var id = 0
   val config = ConfigFactory.defaultApplication()
-  private val serverAdress = config.getString("serverAdress")
+  private val serverAddress = config.getString("serverAddress")
   implicit val system = ActorSystem()
+  val requestManager = new RequestManager()
 
   def main(args: Array[String]): Unit = {
 
@@ -67,15 +68,12 @@ object Client extends DefaultJsonProtocol {
         println(message.getStrictText)
       // ignore other message types
     }
-
-    val requestGame = Map("message_type" -> "request.play").asJson
-    val request = requestGame.deepMerge(Map("players" -> n).asJson)
-    val outgoing = Source.single(TextMessage(request.toString()))
+    val outgoing = Source.single(TextMessage(requestManager.newGameRequest(n).toString()))
 
     val flow: Flow[Message, Message, Future[Done]] =
       Flow.fromSinkAndSourceMat(printSink, outgoing)(Keep.left)
     val (upgradeResponse, closed) =
-      Http().singleWebSocketRequest(WebSocketRequest(s"ws://$serverAdress/new-game",
+      Http().singleWebSocketRequest(WebSocketRequest(s"ws://$serverAddress/new-game",
       ), flow)
     val connected = upgradeResponse.flatMap { upgrade =>
       if (upgrade.response.status == StatusCodes.SwitchingProtocols) {
@@ -98,16 +96,13 @@ object Client extends DefaultJsonProtocol {
         println(message.getStrictText)
       // ignore other message types
     }
-    val requestGame = Map("message_type" -> "request.ping").asJson
-    var request = requestGame.deepMerge(Map("time_stamp" -> LocalDateTime.now().toString()).asJson)
-    request = request.deepMerge(Map("id" -> id).asJson)
     id += 1;
-    val outgoing = Source.single(TextMessage(request.toString()))
+    val outgoing = Source.single(TextMessage(requestManager.pingPongRequest(id).toString()))
 
     val flow: Flow[Message, Message, Future[Done]] =
       Flow.fromSinkAndSourceMat(printSink, outgoing)(Keep.left)
     val (upgradeResponse, closed) =
-      Http().singleWebSocketRequest(WebSocketRequest(s"ws://$serverAdress/ping-pong",
+      Http().singleWebSocketRequest(WebSocketRequest(s"ws://$serverAddress/ping-pong",
       ), flow)
     val connected = upgradeResponse.flatMap { upgrade =>
       if (upgrade.response.status == StatusCodes.SwitchingProtocols) {
